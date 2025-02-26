@@ -1,0 +1,25 @@
+% Define height and period ranges
+stiffness = linspace(0, 5000, 5000);
+damping = linspace(10000, 1200000, 1190000);
+pretension = linspace(20000, 1000000, 980000);
+
+% Initialize matrix to store the function outputs
+output = zeros(length(stiffness), length(damping));
+
+% Loop through height and period values to get the function output
+for i = 1:length(stiffness)
+    for j = 1:length(damping)
+        for k = 1:length(damping)
+            output(i, j, k) = wecSimRun(stiffness(i), damping(j)); % Assuming wecSimRun takes height and period
+        end
+    end
+end
+
+% Create a contour plot
+figure()
+[H, P] = meshgrid(stiffness, damping); % Create a grid for height and period
+contour3(H, P, output', 100);       % Transpose output for correct orientation
+colorbar;                          % Add a color bar to show the scale of outputs
+xlabel('Height (m)');              % Label for x-axis
+ylabel('Period (s)');              % Label for y-axis
+title('Contour Plot of WEC Simulation Output'); % Title for the plot

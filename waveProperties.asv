@@ -1,0 +1,21 @@
+% Define height and period ranges
+height = linspace(3, 5, 0.1);     % Height values from 0 to 5 with a step of 0.001
+period = linspace(3, 5, 1001);    % Period values from 0 to 20 with a step of 0.001
+
+% Initialize matrix to store the function outputs
+output = zeros(length(height), length(period));
+
+% Loop through height and period values to get the function output
+for i = 1:length(height)
+    for j = 1:length(period)
+        output(i, j) = wecSimRun(height(i), period(j)); % Assuming wecSimRun takes height and period
+    end
+end
+
+% Create a contour plot
+[H, P] = meshgrid(height, period); % Create a grid for height and period
+contourf(H, P, output', 20);       % Transpose output for correct orientation
+colorbar;                          % Add a color bar to show the scale of outputs
+xlabel('Height (m)');              % Label for x-axis
+ylabel('Period (s)');              % Label for y-axis
+title('Contour Plot of WEC Simulation Output'); % Title for the plot

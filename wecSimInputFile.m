@@ -1,0 +1,32 @@
+% Simulation Data
+simu = simulationClass();
+simu.simMechanicsFile = 'RM3.slx';
+simu.mode = 'normal';
+simu.explorer = 'on';
+simu.startTime = 0;
+simu.rampTime = 100;
+simu.endTime = 400;
+simu.solver = 'ode4';
+simu.dt = 0.1;
+
+waves = waveClass('irregular');
+waves.height = 2.5;
+waves.period = 7;
+waves.spectrumType = 'JS';
+waves.bem.option = 'EqualEnergy';
+waves.phaseSeed = 1;
+body(1) = bodyClass('hydroData/rm3.h5');
+body(1).geometryFile = 'geometry/float.stl';
+body(1).mass = 'equilibrium';
+body(1).inertia = [20907301 21306090.66 37085481.11];
+body(2) = bodyClass('hydroData/rm3.h5');
+body(2).geometryFile = 'geometry/plate.stl';
+body(2).mass = 'equilibrium';
+body(2).inertia = [94419614.57 94407091.24 28542224.82];
+constraint(1) = constraintClass('Constraint1');
+constraint(1).location = [0 0 0];
+pto(1) = ptoClass('PTO1');
+pto(1).stiffness = 3.714742e+07;
+pto(1).damping = 4.669669e+07;
+pto(1).pretension = 1.437240e+03;
+pto(1).location = [0 0 0];
